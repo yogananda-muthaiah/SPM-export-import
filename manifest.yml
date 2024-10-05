@@ -1,0 +1,12 @@
+applications:
+  - name: export-import
+    memory: 1024MB
+    disk_quota: 4024M
+    host: export-import
+    domain: cfapps.eu10.hana.ondemand.com
+    buildpacks: ["python_buildpack"]
+    command: python app.py
+    services:
+      - app-logs
+      - malware
+      - malware_Scan

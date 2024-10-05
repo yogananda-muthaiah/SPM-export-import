@@ -1,0 +1,6 @@
+flask
+requests
+pybase64
+glob2
+pandas
+openpyxl

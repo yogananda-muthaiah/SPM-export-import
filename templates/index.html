@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Export/Import</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <style>
+        body {
+            padding-top: 56px; /* Adjusted for fixed navbar */
+        }
+        .sidebar {
+            height: 100%;
+            width: 200px;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            background-color: #111;
+            padding-top: 20px;
+            padding-left: 10px;
+            color: white;
+        }
+        .main-content {
+            margin-left: 200px;
+            padding: 20px;
+            padding-top: 0px;
+        }
+        table {
+            width: 100%;
+        }
+        th, td {
+            text-align: left;
+            padding: 8px;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            background-color: #111;
+            color: white;
+            padding: 10px;
+        }           
+        .fa-cloud-download:before {
+        content: "\f0ed";
+        font-family: "FontAwesome" !important;       
+        font-size: 38px;   
+        } 
+        .fa-cloud-upload:before {
+        content: "\f0ee";
+        font-family: "FontAwesome" !important;    
+        font-size: 38px;   
+        }         
+    </style>
+</head>
+<body>
+
+    
+
+    <div class="sidebar">
+        <h3>Global Data</h3>
+        <br>
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a href="{{ url_for('index') }}">
+                    <i class="fa-cloud-download"></i><!-- FontAwesome download icon -->
+                    <strong>Export</strong>
+                </a>
+                <br>
+                <br>
+                <br>
+                <a href="{{ url_for('import_data') }}">
+                    <i class="fa-cloud-upload"></i> 
+                    <strong>Import</strong>
+                </a>                
+            </li>
+        </ul>
+        <!-- Sidebar at the bottom -->
+        <div class="footer">
+            <p>Version 2401.0.0</p>
+            <p>Contact Yogananda</p>
+        </div>  
+    </div>
+
+    <div class="main-content">
+        <form class="form-inline" method="post" action="{{ url_for('index') }}">
+            <select class="form-control mr-sm-2" name="platform" id="platform">
+                <!-- <option value="GCP">GCP</option> -->
+                <option value="HANA">HANA</option>
+                <option value="Oracle">Oracle</option>
+            </select>
+            <input class="form-control mr-sm-2" type="text" placeholder="Tenant Name" name="tenant" required style="width: 15%;">
+            <input class="form-control mr-sm-2" type="text" placeholder="API Username" name="username" required>
+            <input class="form-control mr-sm-2" type="password" placeholder="API Password" name="password" required>
+            <select class="form-control mr-sm-2" name="dataTypes" id="dataTypes">
+                <!-- <option value="GCP">GCP</option> -->
+                <option value="creditTypes">Credit Types</option>
+                <option value="eventTypes">Event Types</option>
+                <option value="earningCodes">Earning Code</option>
+                <option value="earningGroups">Earning Group</option>        
+                <option value="positionGroups">Position Group</option>     
+                <option value="reasons">Reasons</option>             
+            </select>
+            <button class="btn btn-primary" type="submit">Login</button>
+        </form>
+
+        <br>
+        <h2>Global Values Data Export</h2>
+
+        {% if count > 0 %}
+        <form action="/export" method="post">
+            <button type="submit" class="btn btn-primary float-right mb-3">Export to Excel</button>
+            <table class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in api_data %}
+                        <tr>
+                            <td>{{ item.values()|first }}</td>
+                            <td>{{ item.description }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </form>
+    {% endif %}
+
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
