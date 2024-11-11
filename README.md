@@ -1,6 +1,15 @@
 # SPM-export-import
 SAP Incentive Management for Global types Export and Import
 
+This application will help you to move your data from DEV to QA or Production easily without creating manually. 
+
+* Credit Types
+* Event Types
+* Position Groups
+* Reasons
+* Earning Groups
+* Earning Code
+
 
 ### Deploy to SAP BTP 
 
