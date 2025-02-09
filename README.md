@@ -10,6 +10,10 @@ This application will help you & save time to move your data from DEV to QA or P
 * Earning Groups
 * Earning Code
 
+### Local Testing
+```
+python app.py
+```
 
 ### Deploy to SAP BTP 
 
